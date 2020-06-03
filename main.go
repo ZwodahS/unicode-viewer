@@ -49,7 +49,6 @@ func redraw(columnRegion, rowRegion, runeRegion *tcellr.Region, page, selectedX,
 		quoted := "'\\u" + value + "'"
 		c, err := strconv.Unquote(quoted)
 		if err != nil {
-			debug(err)
 			panic(err)
 		}
 		for _, r := range c {
@@ -171,7 +170,8 @@ loop:
 			case *tcell.EventResize:
 			}
 			mainRegion.SetText(0, 0, "Page: "+strconv.Itoa(page))
-			mainRegion.SetText(0, 1, fmt.Sprintf("%d %d", x, y))
+			mainRegion.SetText(0, 1, fmt.Sprintf("%d %d ", x, y))
+			mainRegion.SetText(0, 2, fmt.Sprintf("%d    ", y * 16 + x))
 			mainRegion.Draw(0, 0)
 			screen.Show()
 		}
